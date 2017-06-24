@@ -1,3 +1,4 @@
+/*eslint no-undef: "off"*/
 /**
  * pretty-properties
  *
@@ -8,7 +9,6 @@
  */
 
 import {
-    assert,
     expect
 } from 'chai';
 import {

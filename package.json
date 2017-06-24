@@ -17,13 +17,11 @@
     "plugins": [
       "transform-runtime"
     ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb/base"
-  },
+  },  
   "dependencies": {
-    "babel-runtime": "^6.6.1"
+    "babel-runtime": "^6.6.1",
+    "promise": "^8.0.0",
+    "properties": "^1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
@@ -37,11 +35,11 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "del": "^2.2.0",
-    "eslint": "^2.9.0",
-    "eslint-config-airbnb": "^8.0.0",
+    "eslint": "^2.9.0",    
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
-    "eslint-plugin-react": "^5.0.1",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-react": "^5.2.2",
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^2.4.5",
     "rollup": "^0.26.2",
@@ -49,7 +47,7 @@
     "sinon": "^2.0.0-pre"
   },
   "scripts": {
-    "lint": "eslint src test tools",
+    "lint": "eslint src test",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "mocha --compilers js:babel-register --reporter min --watch",
     "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",

@@ -7,8 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const properties = require("properties");
-
+import properties from 'properties';
+import Promise from 'promise';
 
 class PrettyProperties {
 
@@ -26,8 +26,8 @@ class PrettyProperties {
             /* possible to cache */
             return JSON.parse(value);
         } catch (e) {
-            return value; 
-        }        
+            return value;
+        }
     }
 
 }
@@ -44,4 +44,6 @@ async function parseProperties(filename) {
 
 export default PrettyProperties;
 
-export { parseProperties };
+export {
+    parseProperties
+};
