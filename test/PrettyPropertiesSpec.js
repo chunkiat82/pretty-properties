@@ -36,6 +36,19 @@ describe('PrettyProperties', () => {
             expect(typeof l).to.be.equal('object');
         });
 
+        it('should return whole Object', async() => {
+            const properties = await parseProperties(__dirname + '/samples/test1.properties');
+            const all = properties.getProperties();
+            const expected = {
+                "hello": "world"
+            };
+            expect(JSON.parse(all.l)).to.deep.equal(expected);
+            expect(typeof JSON.parse(all.l)).to.be.equal('object');
+
+            expect(all.a).to.be.equal('a');
+            expect(typeof all.a).to.be.equal('string');
+        });
+
     });
 
 });
