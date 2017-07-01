@@ -8,8 +8,9 @@
  */
 
 import PrettyProperties from './PrettyProperties';
-import { parseProperties, diffJSON } from './Helper';
+import { diffProperties, parseProperties, diff } from './Helper';
+import { TYPE, DIFF_TYPE } from './Constants';
 
 export default PrettyProperties;
-export { parseProperties, diffJSON };
+export { diffProperties, parseProperties, diff, TYPE, DIFF_TYPE};
 

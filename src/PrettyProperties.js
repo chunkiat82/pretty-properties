@@ -7,8 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import Promise from 'promise';
-
-const TYPE = { JSON:'json', STRING:'string' };
+import { diffProperties } from './Helper';
+import { TYPE } from './Constants';
 
 class PrettyProperties {
 
@@ -26,7 +26,7 @@ class PrettyProperties {
         return value;
     }
 
-    getPropertyAndType(key){
+    getPropertyAndType(key) {
         const value = this.props[key];
         try {
             /* possible to cache */
@@ -35,6 +35,10 @@ class PrettyProperties {
         } catch (e) {
             return { type: TYPE.STRING, value };;
         }
+    }
+    
+    getDiff(props) {
+        return diffProperties(this.props, props);
     }
 
 }

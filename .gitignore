@@ -6,3 +6,6 @@ dist
 docs/dist
 node_modules
 npm-debug.log
+
+# MacOS
+**/.DS_Store

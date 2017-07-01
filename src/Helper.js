@@ -1,7 +1,14 @@
-import 'colors';
-import jsdiff from 'diff';
+require('colors');
+const jsdiff = require('diff')
+var debug = require('debug')('prettyproperties');
+
 import properties from 'properties';
 import PrettyProperties from './index';
+import {
+    TYPE,
+    DIFF_TYPE,
+    MAPPING_TYPE
+} from './Constants';
 
 async function parseProperties(filename) {
     return new Promise((resolve, reject) => {
@@ -13,19 +20,79 @@ async function parseProperties(filename) {
     });
 }
 
-async function diffJSON(options = {},jsonLeft, jsonRight) {
+function diff(left, right, options = {
+    type: TYPE.STRING,
+    diffType: DIFF_TYPE.LINES,
+    fullDiff: true
+}) {
 
-    var diff = jsdiff.diffChars(jsonLeft, jsonRight);
+    const diffFunction = jsdiff[MAPPING_TYPE[options.type + options.diffType]]
+    const diffs = diffFunction(left, right);
 
-    diff.forEach(function(part){
-    // green for additions, red for deletions
-    // grey for common parts
-    var color = part.added ? 'green' :
-        part.removed ? 'red' : 'grey';
-        process.stderr.write(part.value[color]);
-    });
+    if (debug.enabled) {
+        debug(`diffs=${JSON.stringify(diffs, null, 2)}`)
+    }
 
-    console.log()
+    if (!options.fullDiff) {
+        var filteredDiffs = [];
+        diffs.forEach((part) => {
+            if (part.removed || part.added) {
+                filteredDiffs[filteredDiffs.length] = part;
+            }
+        });
+        return filteredDiffs;
+    } else {
+        return diffs;
+    }
+
 }
 
-export { parseProperties , diffJSON };
+function diffProperties(leftProperties, rightProperties) {
+    if (typeof leftProperties !== 'object' ||
+        typeof rightProperties !== 'object') {
+        return [];
+    }
+    const leftKeys = Object.keys(leftProperties).sort();
+    const rightKeys = Object.keys(rightProperties).sort();
+    let i = 0,
+        j = 0;
+    const diffs = [];
+
+    debug('leftKeys.length =  %s, rightKeys.length =  %s', leftKeys.length, rightKeys.length )
+
+    while (i < leftKeys.length || j < rightKeys.length) {
+
+        const left = leftKeys[i];
+        const right = rightKeys[j];
+        if (left === right) {
+            i++;
+            j++;
+        }
+        if (left < right) {
+            i++;
+            diffs[diffs.length] = {
+                count: 1,
+                removed: true,
+                value: left
+            };
+        }
+
+        if (left > right) {
+            j++;
+            diffs[diffs.length] = {
+                count: 1,
+                added: true,
+                value: right
+            };
+        }
+    }
+    return diffs;
+}
+
+export {
+    diffProperties,
+    parseProperties,
+    diff,
+    TYPE,
+    DIFF_TYPE
+};
