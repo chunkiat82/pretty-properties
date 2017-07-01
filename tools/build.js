@@ -36,6 +36,7 @@ for (const format of ['es6', 'cjs', 'umd']) {
     format,
     sourceMap: true,
     moduleName: format === 'umd' ? pkg.name : undefined,
+    exports: 'named'
   })));
 }
 
