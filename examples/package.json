@@ -1,0 +1,16 @@
+{
+  "name": "pretty-properties-example",
+  "version": "1.0.1",
+  "description": "Please run 'npm install -g babel-cli'",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "pretty-properties"
+  ],
+  "author": "Raymond Ho",
+  "license": "MIT"
+}

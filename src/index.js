@@ -7,4 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-// import PrettyProperties from './PrettyProperties';
+import PrettyProperties from './PrettyProperties';
+import { parseProperties } from './PrettyProperties';
+
+export { parseProperties };
+export default { PrettyProperties: PrettyProperties };
