@@ -6,8 +6,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
-import properties from 'properties';
 import Promise from 'promise';
 
 const TYPE = { JSON:'json', STRING:'string' };
@@ -40,19 +38,4 @@ class PrettyProperties {
     }
 
 }
-
-async function parseProperties(filename) {
-    return new Promise((resolve, reject) => {
-        properties.parse(filename, {
-            path: true
-        }, function(error, obj) {
-            error ? reject(error) : resolve(new PrettyProperties(obj));
-        });
-    });
-}
-
 export default PrettyProperties;
-
-export {
-    parseProperties
-};

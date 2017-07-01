@@ -8,7 +8,8 @@
  */
 
 import PrettyProperties from './PrettyProperties';
-import { parseProperties } from './PrettyProperties';
+import { parseProperties, diffJSON } from './Helper';
 
-export { parseProperties };
-export default { PrettyProperties: PrettyProperties };
+export default PrettyProperties;
+export { parseProperties, diffJSON };
+

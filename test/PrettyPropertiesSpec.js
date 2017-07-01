@@ -13,7 +13,7 @@ import {
 } from 'chai';
 import {
     parseProperties
-} from '../src/PrettyProperties';
+} from '../src/index';
 
 describe('PrettyProperties', () => {
 
