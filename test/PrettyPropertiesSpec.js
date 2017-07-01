@@ -65,10 +65,6 @@ describe('PrettyProperties', () => {
         it('should return whole Object', async() => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const all = properties.getProperties();
-            const expected = {
-                "hello": "world"
-            };
-
             expect(typeof JSON.parse(all.l)).to.be.equal('object');
 
             expect(all.a).to.be.equal('a');
@@ -83,7 +79,8 @@ describe('PrettyProperties', () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test4.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test4.B.properties');
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
-            expect(diffs).to.deep.equal([{
+            expect(diffs).to.deep.equal(
+                [{
                     count: 1,
                     removed: true,
                     value: 'b'

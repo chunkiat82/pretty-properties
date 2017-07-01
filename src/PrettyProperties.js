@@ -6,7 +6,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-import Promise from 'promise';
 import { diffProperties } from './Helper';
 import { TYPE } from './Constants';
 
@@ -28,13 +27,15 @@ class PrettyProperties {
 
     getPropertyAndType(key) {
         const value = this.props[key];
+        let returnValue = null;
         try {
             /* possible to cache */
             const json = JSON.parse(value);
-            return { type: TYPE.JSON, value:json };
+            returnValue = { type: TYPE.JSON, value:json };
         } catch (e) {
-            return { type: TYPE.STRING, value };;
+            returnValue = { type: TYPE.STRING, value };
         }
+        return returnValue;
     }
     
     getDiff(props) {

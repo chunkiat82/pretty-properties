@@ -18,9 +18,6 @@ import {
     DIFF_TYPE
 } from '../src/index';
 
-import jsesc from 'jsesc';
-
-
 describe('Diff Test', () => {
 
     describe('JSON diff', () => {
@@ -30,7 +27,11 @@ describe('Diff Test', () => {
             const propertiesRight = await parseProperties(__dirname + '/samples/test2.B.properties');
             const valueLeft = propertiesLeft.getProperty('j');
             const valueRight = propertiesRight.getProperty('j');
-            const diffs = diff(valueLeft, valueRight, { type: TYPE.JSON, diffType: DIFF_TYPE.WORDS, fullDiff: true});
+            const diffs = diff(valueLeft, valueRight, {
+                type: TYPE.JSON,
+                diffType: DIFF_TYPE.WORDS,
+                fullDiff: true
+            });
 
             expect(diffs[0].count).to.deep.equal(144);
             expect(diffs[1].value.trim()).to.deep.equal('"longitude": "111.741686",');
@@ -43,10 +44,14 @@ describe('Diff Test', () => {
             const propertiesRight = await parseProperties(__dirname + '/samples/test2.B.properties');
             const valueLeft = propertiesLeft.getProperty('j');
             const valueRight = propertiesRight.getProperty('j');
-            const diffs = diff(valueLeft, valueRight, { type: TYPE.JSON, diffType: DIFF_TYPE.WORDS, fullDiff: false});
-            
+            const diffs = diff(valueLeft, valueRight, {
+                type: TYPE.JSON,
+                diffType: DIFF_TYPE.WORDS,
+                fullDiff: false
+            });
+
             expect(diffs[0].value.trim()).to.deep.equal('"longitude": "111.741686",');
-            expect(diffs[1].value.trim()).to.deep.equal('"longitude": "113.198200000",');            
+            expect(diffs[1].value.trim()).to.deep.equal('"longitude": "113.198200000",');
         });
 
     });
@@ -58,7 +63,11 @@ describe('Diff Test', () => {
             const propertiesRight = await parseProperties(__dirname + '/samples/test3.B.properties');
             const valueLeft = propertiesLeft.getProperty('a');
             const valueRight = propertiesRight.getProperty('a');
-            const diffs = diff(valueLeft, valueRight, { type: TYPE.STRING, diffType: DIFF_TYPE.WORDS, fullDiff: true});
+            const diffs = diff(valueLeft, valueRight, {
+                type: TYPE.STRING,
+                diffType: DIFF_TYPE.WORDS,
+                fullDiff: true
+            });
 
             expect(diffs[0].count).to.deep.equal(2);
             expect(diffs[1].value.trim()).to.deep.equal('cultivated');
@@ -71,10 +80,14 @@ describe('Diff Test', () => {
             const propertiesRight = await parseProperties(__dirname + '/samples/test3.B.properties');
             const valueLeft = propertiesLeft.getProperty('a');
             const valueRight = propertiesRight.getProperty('a');
-            const diffs = diff(valueLeft, valueRight, { type: TYPE.STRING, diffType: DIFF_TYPE.WORDS, fullDiff: false});
-            
+            const diffs = diff(valueLeft, valueRight, {
+                type: TYPE.STRING,
+                diffType: DIFF_TYPE.WORDS,
+                fullDiff: false
+            });
+
             expect(diffs[0].value.trim()).to.deep.equal('cultivated');
-            expect(diffs[1].value.trim()).to.deep.equal('atas');            
+            expect(diffs[1].value.trim()).to.deep.equal('atas');
         });
     });
 
