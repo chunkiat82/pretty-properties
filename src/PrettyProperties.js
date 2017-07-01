@@ -10,6 +10,8 @@
 import properties from 'properties';
 import Promise from 'promise';
 
+const TYPE = { JSON:'json', STRING:'string' };
+
 class PrettyProperties {
 
     constructor(props) {
@@ -21,12 +23,19 @@ class PrettyProperties {
     }
 
     getProperty(key) {
+        /* can optimize later */
+        const { value } = this.getPropertyAndType(key);
+        return value;
+    }
+
+    getPropertyAndType(key){
         const value = this.props[key];
         try {
             /* possible to cache */
-            return JSON.parse(value);
+            const json = JSON.parse(value);
+            return { type: TYPE.JSON, value:json };
         } catch (e) {
-            return value;
+            return { type: TYPE.STRING, value };;
         }
     }
 

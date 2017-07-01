@@ -21,19 +21,38 @@ describe('PrettyProperties', () => {
 
         it('should return string', async() => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
-            const a = properties.getProperty('a');
-            expect(a).to.be.equal('a');
-            expect(typeof a).to.be.equal('string');
+            const value = properties.getProperty('a');
+            expect(value).to.be.equal('a');
+            expect(typeof value).to.be.equal('string');
         });
 
         it('should return JSON Object', async() => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
-            const l = properties.getProperty('l');
+            const value = properties.getProperty('l');
             const expected = {
                 "hello": "world"
             };
-            expect(l).to.deep.equal(expected);
-            expect(typeof l).to.be.equal('object');
+            expect(value).to.deep.equal(expected);
+            expect(typeof value).to.be.equal('object');
+        });
+
+        it('should return JSON Object and Type to be json', async() => {
+            const properties = await parseProperties(__dirname + '/samples/test1.properties');
+            const { value, type } = properties.getPropertyAndType('l');
+            const expected = {
+                "hello": "world"
+            };
+            expect(value).to.deep.equal(expected);
+            expect(typeof value).to.be.equal('object');
+            expect(type).to.be.equal('json');
+        });
+
+        it('should return string and Type to be string', async() => {
+            const properties = await parseProperties(__dirname + '/samples/test1.properties');
+            const { value, type } = properties.getPropertyAndType('a');            
+            expect(value).to.be.equal('a');
+            expect(typeof value).to.be.equal('string');
+            expect(type).to.be.equal('string');
         });
 
         it('should return whole Object', async() => {
