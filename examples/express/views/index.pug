@@ -12,15 +12,18 @@ block content
         if row.existing
           tr
             th(scope='row')=index+1
-            td= row.value
-            td= row.value
+            td= row.key
+            td
+              each diff, index in row.diff
+                p= diff.value
+              
         if row.added
           tr(class='table-success')
             th(scope='row')=index+1
-            td= row.value
+            td= row.key
             td= row.value
         if row.removed
           tr(class='table-danger')
             th(scope='row')=index+1
-            td= row.value
+            td= row.key
             td= row.value
