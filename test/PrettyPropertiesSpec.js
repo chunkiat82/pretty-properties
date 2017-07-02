@@ -123,8 +123,7 @@ describe('PrettyProperties', () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test8.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test8.B.properties');
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
-            expect(diffs).to.deep.equal([
-                {
+            expect(diffs).to.deep.equal([{
                     "existing": true,
                     "value": "a"
                 },
@@ -139,6 +138,26 @@ describe('PrettyProperties', () => {
                 {
                     "added": true,
                     "value": "d"
+                }
+            ]);
+        });
+
+        it('should return different keys in diff array', async() => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test9.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test9.B.properties');
+            const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
+            expect(diffs).to.deep.equal([{
+                    "existing": true,
+                    "value": "a"
+                },
+                {
+                    "added": true,
+                    "value": "b"
+                }
+                ,
+                {
+                    "removed": true,
+                    "value": "c"
                 }
             ]);
         });

@@ -101,7 +101,7 @@ function diffProperties(leftProperties, rightProperties) {
             debug(`${left} ${right} left > right`);
             j++;
             diffs[diffs.length] = {                
-                removed: true,
+                added: true,
                 value: right
             };
         }

@@ -9,7 +9,18 @@ block content
         th= 'Value'
     tbody
       each val, index in rows
-        tr
-          th(scope='row')=index+1
-          td= val
-          td= val
+        if val.existing
+          tr
+            th(scope='row')=index+1
+            td= val
+            td= val
+        if val.added
+          tr(class='table-success')
+            th(scope='row')=index+1
+            td= val
+            td= val
+        if val.removed
+          tr(class='table-danger')
+            th(scope='row')=index+1
+            td= val
+            td= val
