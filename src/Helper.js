@@ -35,12 +35,16 @@ function diff(left, right, options = {
     diffType: DIFF_TYPE.LINES,
     fullDiff: true
 }) {
-
+    debug('left type = %s, right type =%s', typeof left, typeof right);
+    
+    debug('MAPPING_TYPE[options.type + options.diffType] = %s', MAPPING_TYPE[options.type + options.diffType]);
     const diffFunction = jsdiff[MAPPING_TYPE[options.type + options.diffType]]
     const diffs = diffFunction(left, right);
 
     if (debug.enabled) {
-        debug(`diffs=${JSON.stringify(diffs, null, 2)}`)
+        debug(`left=${JSON.stringify(left, null, 2)}`);
+        debug(`right=${JSON.stringify(right, null, 2)}`)
+        debug(`JSON diffs=${JSON.stringify(diffs, null, 2)}`);
     }
 
     if (!options.fullDiff) {
@@ -92,7 +96,8 @@ function diffProperties(leftPrettyProperties, rightPrettyProperties) {
             const leftPT = leftPrettyProperties.getPropertyAndType(left);
             const rightPT = rightPrettyProperties.getPropertyAndType(right);
             let contentDiff = [];
-            if (leftPT.type === rightPT.type && leftPT.type === TYPE.JSON) {
+            if (leftPT.type === rightPT.type && rightPT.type === TYPE.JSON) {
+                debug(`${TYPE.JSON}`);
                 contentDiff = diff(leftPT.value, rightPT.value, {
                     type: TYPE.JSON,
                     diffType: DIFF_TYPE.WORDS,

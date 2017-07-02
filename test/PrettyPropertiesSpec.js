@@ -204,5 +204,13 @@ describe('PrettyProperties', () => {
                 }
                 ]);
         });
+
+        it('should return different keys in diff array for JSON', async() => {
+            // const propertiesLeft = await parseProperties(__dirname + '/samples/test10.A.properties');
+            // const propertiesRight = await parseProperties(__dirname + '/samples/test10.B.properties');
+            // const diffs = diffProperties(propertiesLeft, propertiesRight);
+            // expect(diffs).to.deep.includes([]);
+            // to be continued;
+        });
     });
 });
