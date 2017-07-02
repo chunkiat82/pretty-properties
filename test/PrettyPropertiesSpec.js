@@ -81,8 +81,15 @@ describe('PrettyProperties', () => {
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
             expect(diffs).to.deep.equal([{
                 "existing": true,
-                "value": "a"
+                "key": "a",
+                "left": "a",
+                "right": "a",
+                "diff": [{
+                    "count": 1,
+                    "value": "a"
+                }]
             }]);
+
         });
 
         it('should return different keys in diff array', async() => {
@@ -91,11 +98,13 @@ describe('PrettyProperties', () => {
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
             expect(diffs).to.deep.equal([{
                     "removed": true,
-                    "value": "a"
+                    "value": "a",
+                    "key": "a"
                 },
                 {
                     "added": true,
-                    "value": "b"
+                    "value": "b",
+                    "key": "b"
                 }
             ]);
         });
@@ -106,14 +115,22 @@ describe('PrettyProperties', () => {
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
             expect(diffs).to.deep.equal([{
                     "existing": true,
-                    "value": "a"
+                    "key": "a",                    
+                    "left": "a",
+                    "right": "a",
+                    "diff": [{
+                        "count": 1,
+                        "value": "a"
+                    }]
                 },
                 {
                     "removed": true,
+                    "key": "b",
                     "value": "b"
                 },
                 {
                     "added": true,
+                    "key": "c",
                     "value": "c"
                 }
             ]);
@@ -125,18 +142,32 @@ describe('PrettyProperties', () => {
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
             expect(diffs).to.deep.equal([{
                     "existing": true,
-                    "value": "a"
+                    "key": "a",
+                    "left": "a",
+                    "right": "a",
+                    "diff": [{
+                        "count": 1,
+                        "value": "a"
+                    }]
                 },
                 {
                     "existing": true,
-                    "value": "b"
+                    "key": "b",                    
+                    "left": "b",
+                    "right": "b",
+                    "diff": [{
+                        "count": 1,
+                        "value": "b"
+                    }]
                 },
                 {
                     "added": true,
+                    "key": "c",
                     "value": "c"
                 },
                 {
                     "added": true,
+                    "key": "d",
                     "value": "d"
                 }
             ]);
@@ -148,15 +179,22 @@ describe('PrettyProperties', () => {
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
             expect(diffs).to.deep.equal([{
                     "existing": true,
-                    "value": "a"
+                    "key": "a",
+                    "left": "a",
+                    "right": "a",
+                    "diff": [{
+                        "count": 1,
+                        "value": "a"
+                    }]
                 },
                 {
                     "added": true,
+                    "key": "b",
                     "value": "b"
-                }
-                ,
+                },
                 {
                     "removed": true,
+                    "key": "c",
                     "value": "c"
                 }
             ]);

@@ -1,26 +1,26 @@
 extends layout
 
 block content  
-  table(class='table table-striped')
+  table(class='table table-hover table-bordered')
     thead
       tr
-        th= 'Line'
-        th= 'Key'
-        th= 'Value'
+        th(style='width:10%')= 'Line'
+        th(style='width:30%')= 'Key'
+        th(style='width:60%')= 'Value'
     tbody
-      each val, index in rows
-        if val.existing
+      each row, index in rows
+        if row.existing
           tr
             th(scope='row')=index+1
-            td= val
-            td= val
-        if val.added
+            td= row.value
+            td= row.value
+        if row.added
           tr(class='table-success')
             th(scope='row')=index+1
-            td= val
-            td= val
-        if val.removed
+            td= row.value
+            td= row.value
+        if row.removed
           tr(class='table-danger')
             th(scope='row')=index+1
-            td= val
-            td= val
+            td= row.value
+            td= row.value

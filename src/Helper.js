@@ -85,16 +85,26 @@ function diffProperties(leftProperties, rightProperties) {
             debug(`${left} ${right} same`);
             i++;
             j++;
+            // const leftPT = leftProperties.getPropertyAndType(left);
+            // const rightPT = leftProperties.getPropertyAndType(right);
+            const leftPT = leftProperties[left]; //string for now
+            const rightPT = rightProperties[right]; //string for now
+            const contentDiff = diff(leftPT, rightPT);
+
             diffs[diffs.length] = {         
                 existing: true,
-                value: left
+                key: left,
+                diff: contentDiff,
+                left: leftProperties[left],
+                right: rightProperties[right]
             };
         } else if (left < right) {
             debug(`${left} ${right} left < right`);
             i++;
             diffs[diffs.length] = {                
                 removed: true,
-                value: left
+                key: left,
+                value: leftProperties[left]
             };
 
         } else if (left > right) {
@@ -102,7 +112,8 @@ function diffProperties(leftProperties, rightProperties) {
             j++;
             diffs[diffs.length] = {                
                 added: true,
-                value: right
+                key: right,
+                value: rightProperties[right]
             };
         }
 
@@ -113,7 +124,8 @@ function diffProperties(leftProperties, rightProperties) {
     for (let k = j; k < rightKeys.length; k++) {
         diffs[diffs.length] = {            
             added: true,
-            value: rightKeys[k]
+            key: rightKeys[k],
+            value: rightProperties[rightKeys[k]]
         };
     }
 
@@ -122,7 +134,8 @@ function diffProperties(leftProperties, rightProperties) {
     for (let k = i; k < leftKeys.length; k++) {
         diffs[diffs.length] = {            
             removed: true,
-            value: leftKeys[k]
+            key: leftKeys[k],
+            value: leftProperties[leftKeys[k]]
         };
     }
 
