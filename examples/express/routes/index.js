@@ -12,10 +12,10 @@ router.get('/', async function(req, res, next) {
     console.log(leftProperties.getProperties());
     console.log(rightProperties.getProperties());
     const diffs = diffProperties(leftProperties.getProperties(), rightProperties.getProperties());
-    // console.log(diffs);
+    console.log(diffs);
     res.render('index', {
         title: 'Express',
-        rows: []
+        rows: diffs
     });
 });
 

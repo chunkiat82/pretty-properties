@@ -85,11 +85,14 @@ function diffProperties(leftProperties, rightProperties) {
             debug(`${left} ${right} same`);
             i++;
             j++;
+            diffs[diffs.length] = {         
+                existing: true,
+                value: left
+            };
         } else if (left < right) {
             debug(`${left} ${right} left < right`);
             i++;
-            diffs[diffs.length] = {
-                count: 1,
+            diffs[diffs.length] = {                
                 removed: true,
                 value: left
             };
@@ -97,9 +100,8 @@ function diffProperties(leftProperties, rightProperties) {
         } else if (left > right) {
             debug(`${left} ${right} left > right`);
             j++;
-            diffs[diffs.length] = {
-                count: 1,
-                added: true,
+            diffs[diffs.length] = {                
+                removed: true,
                 value: right
             };
         }
@@ -109,8 +111,7 @@ function diffProperties(leftProperties, rightProperties) {
     debug('main loop completed');
 
     for (let k = j; k < rightKeys.length; k++) {
-        diffs[diffs.length] = {
-            count: 1,
+        diffs[diffs.length] = {            
             added: true,
             value: rightKeys[k]
         };
@@ -119,8 +120,7 @@ function diffProperties(leftProperties, rightProperties) {
     debug('rightKeys loop completed');
 
     for (let k = i; k < leftKeys.length; k++) {
-        diffs[diffs.length] = {
-            count: 1,
+        diffs[diffs.length] = {            
             removed: true,
             value: leftKeys[k]
         };
