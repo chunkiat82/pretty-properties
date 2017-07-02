@@ -144,10 +144,6 @@ function diffProperties(leftProperties, rightProperties) {
     return diffs;
 }
 
-function add(n, length) {
-    return n + 1 === length ? n : n + 1;
-}
-
 export {
     diffProperties,
     parseProperties,
