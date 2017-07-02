@@ -57,15 +57,18 @@ function diff(left, right, options = {
 
 }
 
-function diffProperties(leftProperties, rightProperties) {
+function diffProperties(leftPrettyProperties, rightPrettyProperties) {
 
-    if (typeof leftProperties !== 'object' ||
-        typeof rightProperties !== 'object') {
+    if (!(leftPrettyProperties instanceof PrettyProperties) ||
+        !(rightPrettyProperties instanceof PrettyProperties)) {
         debug('leftProperties Type =  %s, rightProperties Type =  %s', typeof leftProperties, typeof rightProperties);
         return [];
     }
 
     debug('Starting Diff Properties');
+
+    const leftProperties = leftPrettyProperties.getProperties();
+    const rightProperties = rightPrettyProperties.getProperties();
 
     const leftKeys = Object.keys(leftProperties).sort();
     const rightKeys = Object.keys(rightProperties).sort();
@@ -85,13 +88,22 @@ function diffProperties(leftProperties, rightProperties) {
             debug(`${left} ${right} same`);
             i++;
             j++;
-            // const leftPT = leftProperties.getPropertyAndType(left);
-            // const rightPT = leftProperties.getPropertyAndType(right);
-            const leftPT = leftProperties[left]; //string for now
-            const rightPT = rightProperties[right]; //string for now
-            const contentDiff = diff(leftPT, rightPT);
 
-            diffs[diffs.length] = {         
+            const leftPT = leftPrettyProperties.getPropertyAndType(left);
+            const rightPT = rightPrettyProperties.getPropertyAndType(right);
+            let contentDiff = [];
+            if (leftPT.type === rightPT.type && leftPT.type === TYPE.JSON) {
+                contentDiff = diff(leftPT.value, rightPT.value, {
+                    type: TYPE.JSON,
+                    diffType: DIFF_TYPE.WORDS,
+                    fullDiff: true
+                });
+            } else {
+                contentDiff = diff(leftPT.value, rightPT.value);
+            }
+
+            // adding to the main array
+            diffs[diffs.length] = {
                 existing: true,
                 key: left,
                 diff: contentDiff,
@@ -101,7 +113,7 @@ function diffProperties(leftProperties, rightProperties) {
         } else if (left < right) {
             debug(`${left} ${right} left < right`);
             i++;
-            diffs[diffs.length] = {                
+            diffs[diffs.length] = {
                 removed: true,
                 key: left,
                 value: leftProperties[left]
@@ -110,7 +122,7 @@ function diffProperties(leftProperties, rightProperties) {
         } else if (left > right) {
             debug(`${left} ${right} left > right`);
             j++;
-            diffs[diffs.length] = {                
+            diffs[diffs.length] = {
                 added: true,
                 key: right,
                 value: rightProperties[right]
@@ -122,7 +134,7 @@ function diffProperties(leftProperties, rightProperties) {
     debug('main loop completed');
 
     for (let k = j; k < rightKeys.length; k++) {
-        diffs[diffs.length] = {            
+        diffs[diffs.length] = {
             added: true,
             key: rightKeys[k],
             value: rightProperties[rightKeys[k]]
@@ -132,7 +144,7 @@ function diffProperties(leftProperties, rightProperties) {
     debug('rightKeys loop completed');
 
     for (let k = i; k < leftKeys.length; k++) {
-        diffs[diffs.length] = {            
+        diffs[diffs.length] = {
             removed: true,
             key: leftKeys[k],
             value: leftProperties[leftKeys[k]]
