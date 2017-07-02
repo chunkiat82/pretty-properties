@@ -58,36 +58,44 @@ function diff(left, right, options = {
 }
 
 function diffProperties(leftProperties, rightProperties) {
+
     if (typeof leftProperties !== 'object' ||
         typeof rightProperties !== 'object') {
+        debug('leftProperties Type =  %s, rightProperties Type =  %s', typeof leftProperties, typeof rightProperties);
         return [];
     }
+
+    debug('Starting Diff Properties');
+
     const leftKeys = Object.keys(leftProperties).sort();
     const rightKeys = Object.keys(rightProperties).sort();
     let i = 0,
         j = 0;
     const diffs = [];
 
-    debug('leftKeys.length =  %s, rightKeys.length =  %s', leftKeys.length, rightKeys.length )
+    debug('leftKeys.length =  %s, rightKeys.length =  %s', leftKeys.length, rightKeys.length)
 
-    while (i < leftKeys.length || j < rightKeys.length) {
+    while (i < leftKeys.length && j < rightKeys.length) {
 
         const left = leftKeys[i];
         const right = rightKeys[j];
+        debug('left = %s, right =%s', left, right);
+
         if (left === right) {
+            debug(`${left} ${right} same`);
             i++;
             j++;
-        }
-        if (left < right) {
+        } else if (left < right) {
+            debug(`${left} ${right} left < right`);
             i++;
             diffs[diffs.length] = {
                 count: 1,
                 removed: true,
                 value: left
             };
-        }
 
-        if (left > right) {
+        } else if (left > right) {
+            debug(`${left} ${right} left > right`);
             j++;
             diffs[diffs.length] = {
                 count: 1,
@@ -95,8 +103,36 @@ function diffProperties(leftProperties, rightProperties) {
                 value: right
             };
         }
+
+        debug('i = %s, j = %s', i, j);
     }
+    debug('main loop completed');
+
+    for (let k = j; k < rightKeys.length; k++) {
+        diffs[diffs.length] = {
+            count: 1,
+            added: true,
+            value: rightKeys[k]
+        };
+    }
+
+    debug('rightKeys loop completed');
+
+    for (let k = i; k < leftKeys.length; k++) {
+        diffs[diffs.length] = {
+            count: 1,
+            removed: true,
+            value: leftKeys[k]
+        };
+    }
+
+    debug('leftKeys loop completed');
+
     return diffs;
+}
+
+function add(n, length) {
+    return n + 1 === length ? n : n + 1;
 }
 
 export {

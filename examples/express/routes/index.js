@@ -2,17 +2,20 @@ var express = require('express');
 var router = express.Router();
 var PrettyProperties = require('pretty-properties');
 const {
-    parseProperties
+    parseProperties,
+    diffProperties
 } = require('pretty-properties');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-    var leftProperties = await parseProperties(__dirname + '/../properties/left.properties');
-    var rightProperties = await parseProperties(__dirname + '/../properties/right.properties');
-    
+    const leftProperties = await parseProperties(__dirname + '/../properties/left.properties');
+    const rightProperties = await parseProperties(__dirname + '/../properties/right.properties');
+    console.log(leftProperties.getProperties());
+    console.log(rightProperties.getProperties());
+    const diffs = diffProperties(leftProperties.getProperties(), rightProperties.getProperties());
+    // console.log(diffs);
     res.render('index', {
         title: 'Express',
-        leftProperties: JSON.stringify(leftProperties.getProperties()),
-        rightProperties: JSON.stringify(rightProperties.getProperties())
+        rows: []
     });
 });
 

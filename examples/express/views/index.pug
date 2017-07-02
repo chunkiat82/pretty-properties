@@ -6,9 +6,10 @@ block content
       tr
         th= 'Line'
         th= 'Key'
-        th= leftProperties
+        th= 'Value'
     tbody
-      tr
-        th(scope='row')=1
-        td= 'Key1'
-        td= rightProperties
+      each val, index in rows
+        tr
+          th(scope='row')=index+1
+          td= val
+          td= val

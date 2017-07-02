@@ -75,33 +75,62 @@ describe('PrettyProperties', () => {
 
     describe('PrettyProperties getDiff()', () => {
 
-        it('should return different keys in diff array', async() => {
+        it('should return same keys and empty array', async() => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test4.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test4.B.properties');
             const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
-            expect(diffs).to.deep.equal(
-                [{
-                    count: 1,
-                    removed: true,
-                    value: 'b'
+            expect(diffs).to.deep.equal([]);
+        });
+
+        it('should return different keys in diff array', async() => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test5.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test5.B.properties');
+            const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
+            expect(diffs).to.deep.equal([{
+                    "count": 1,
+                    "removed": true,
+                    "value": "a"
                 },
                 {
-                    count: 1,
-                    removed: true,
-                    value: 'e'
+                    "added": true,
+                    "count": 1,
+                    "value": "b"
+                }
+            ]);
+        });
+
+        it('should return different keys in diff array', async() => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test7.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test7.B.properties');
+            const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
+            expect(diffs).to.deep.equal([{
+                    "removed": true,
+                    "count": 1,
+                    "value": "b"
                 },
                 {
-                    count: 1,
-                    added: true,
-                    value: 'f'
+                    "added": true,
+                    "count": 1,
+                    "value": "c"
+                }
+            ]);
+        });
+
+        it('should return different keys in diff array', async() => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test8.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test8.B.properties');
+            const diffs = diffProperties(propertiesLeft.getProperties(), propertiesRight.getProperties());
+            expect(diffs).to.deep.equal([{
+                    "added": true,
+                    "count": 1,
+                    "value": "c"
                 },
                 {
-                    count: 1,
-                    added: true,
-                    value: 'h'
+                    "added": true,
+                    "count": 1,
+                    "value": "d"
                 }
             ]);
         });
     });
-
 });

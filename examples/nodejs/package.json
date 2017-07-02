@@ -12,5 +12,8 @@
     "pretty-properties"
   ],
   "author": "Raymond Ho",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.24.1"
+  }
 }
