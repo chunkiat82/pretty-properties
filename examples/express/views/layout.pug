@@ -2,10 +2,23 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css')
+    link(rel="stylesheet", type="text/css", href="stylesheets/main.min.css")
+    link(rel="stylesheet", type="text/css", href="stylesheets/diff2html.min.css")
+
+    <!-- diff2html -->
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-  body
+  body(class="template-index")
     block content
-    script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/scala.min.js")
+    script(type="text/javascript", src="js/diff2html.min.js")
+    script(type="text/javascript", src="js/diff2html-ui.min.js")
+    script(type="text/javascript", src="js/demo.min.js")
+
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js')
+    script.
+      new Clipboard(document.getElementsByClassName("btn-clipboard"));
