@@ -15,6 +15,7 @@ html
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/scala.min.js")
+    script(type="text/javascript", src="js/Base64.js")
     script(type="text/javascript", src="js/diff2html.min.js")
     script(type="text/javascript", src="js/diff2html-ui.min.js")
     script(type="text/javascript", src="js/demo.min.js")
@@ -23,4 +24,6 @@ html
     script.
       new Clipboard(document.getElementsByClassName("btn-clipboard"));
     script.
-      window.diffdata = '#{diffs}';
+      window.diffs = '#{diffs}';
+      //- window.main (window.diffs);
+      //- console.log(Base64.decode(window.diffs));

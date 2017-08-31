@@ -12,5 +12,8 @@ async function run() {
     var diffs = await diffProperties(leftProperties.getProperties(), rightProperties.getProperties());
     console.log(diffs);
 }
-
-run();
+try {
+    run()    
+} catch (err){
+    console.error(err);
+}

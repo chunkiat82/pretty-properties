@@ -20,10 +20,11 @@ import {
     MAPPING_TYPE
 } from './Constants';
 
-async function parseProperties(filename) {
+async function parseProperties(filename, path) {
     return new Promise((resolve, reject) => {
         properties.parse(filename, {
-            path: true
+            path: !path,
+            separators: "="
         }, function(error, obj) {
             error ? reject(error) : resolve(new PrettyProperties(obj));
         });
