@@ -7,7 +7,7 @@ import PrettyProperties, {
 
 import * as JsDiff from 'diff';
 
-router.post('/', async function(req, res, next) {
+router.post('/', async function (req, res, next) {
     try {
         const leftProperties = await parseProperties(req.body.left, true);
         const left = leftProperties.getProperties();
@@ -16,7 +16,7 @@ router.post('/', async function(req, res, next) {
         const diffsArray = [];
         const rightKeys = Object.keys(right);
         const leftKeys = Object.keys(left);
-        const keys = [...new Set([...leftKeys ,...rightKeys])];
+        const keys = [...new Set([...leftKeys, ...rightKeys])];
         keys.sort().forEach(key => {
 
             let {
@@ -40,8 +40,18 @@ router.post('/', async function(req, res, next) {
             // console.log(`leftValueType=${typeof leftValue}`);
             // console.log(`rightValueType=${typeof rightValue}`);            
             // console.log(`type=${type}`)
-            diffsArray[diffsArray.length] = JsDiff.createPatch(key, leftValue || '', rightValue || '', type, type);
+            diffsArray[diffsArray.length] = JsDiff.createPatch(key,
+                leftValue || '', rightValue || '',
+                leftValue ? type : '/dev/null', rightValue ? type : '/dev/null');
+            if (leftValue === undefined) {
+                diffsArray[diffsArray.length] = 'new file mode 100644\n' + diffsArray[diffsArray.length];
+            }
+            console.log(`rightValue=${rightValue}`);
+            if (rightValue === undefined) {
+                diffsArray[diffsArray.length] = 'deleted file mode 100644\n' + diffsArray[diffsArray.length];
+            }
         });
+        console.log(diffsArray);
         // res.set({
         //     'content-type': 'text/plain; charset=utf-8'
         // });
