@@ -5,45 +5,7 @@ import PrettyProperties, {
     diffProperties
 } from 'pretty-properties';
 
-const JsDiff = require('diff');
-
-
-/* GET users listing. */
-router.get('/', async function(req, res, next) {
-    const leftProperties = await parseProperties(__dirname + '/../properties/left.properties');
-    const rightProperties = await parseProperties(__dirname + '/../properties/right.properties');
-    // console.log(leftProperties.getProperties());
-    // console.log(rightProperties.getProperties());
-
-
-    const diffs = JsDiff.createPatch('property1',
-        leftProperties.getProperties().property1,
-        rightProperties.getProperties().property1,
-        'text',
-        'text');
-
-    const diffs1 = JsDiff.createPatch('property2',
-        JSON.stringify(JSON.parse(leftProperties.getProperties().property2), null, 2),
-        JSON.stringify(JSON.parse(rightProperties.getProperties().property2), null, 2),
-        'json',
-        'json');
-
-    const diffs2 = JsDiff.createPatch('property3',
-        leftProperties.getProperties().property3,
-        '',
-        'text',
-        'text');
-
-    const diffs3 = JsDiff.createPatch('property4',
-        JSON.stringify(JSON.parse(leftProperties.getProperties().property4), null, 2),
-        JSON.stringify(JSON.parse(rightProperties.getProperties().property4), null, 2),
-        'json',
-        'json');
-    res.set({
-        'content-type': 'text/plain; charset=utf-8'
-    });
-    res.send(diffs + diffs1 + diffs2 + diffs3);
-});
+import JsDiff from'diff';
 
 router.post('/', async function(req, res, next) {
     try {
@@ -52,8 +14,10 @@ router.post('/', async function(req, res, next) {
         const rightProperties = await parseProperties(req.body.right, true);
         const right = rightProperties.getProperties();
         const diffsArray = [];
-        // if count
-        Object.keys(left).forEach(key => {
+        const rightKeys = Object.keys(right);
+        const leftKeys = Object.keys(left);
+        const keys = [...new Set([...leftKeys ,...rightKeys])];
+        keys.sort().forEach(key => {
 
             let {
                 type: leftType,
@@ -94,4 +58,4 @@ router.post('/', async function(req, res, next) {
 
 });
 
-module.exports = router;
+export default router;
