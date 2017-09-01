@@ -5,7 +5,7 @@ import PrettyProperties, {
     diffProperties
 } from 'pretty-properties';
 
-import JsDiff from'diff';
+import * as JsDiff from 'diff';
 
 router.post('/', async function(req, res, next) {
     try {
