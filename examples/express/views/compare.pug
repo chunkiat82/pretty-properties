@@ -3,7 +3,7 @@ extends layout
 block content  
   div(class='container')
     div(class="diff-url-wrapper")
-      form(style="float:left" action="/diffs", method="post")
+      form(style="float:left" action="./diffs", method="post")
         textarea(id="left", class="diff-url-input",type="text",name="left",placeholder="Content",rows="40",cols="50",style="height:200px")
         textarea(id="right", class="diff-url-input",type="text",name="right",placeholder="Content",rows="40",cols="50",style="height:200px")
         p()
