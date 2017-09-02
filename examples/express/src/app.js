@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
 import index from './routes/index';
-import diffs from './routes/diffs';
+import compare from './routes/compare';
 
 const app = express();
 
@@ -31,7 +31,7 @@ console.log(path.join(__dirname, '../public' ));
 app.use(express.static(path.join(__dirname, '../public' )));
 
 app.use('/', index);
-app.use('/diffs', diffs);
+app.use('/compare', compare);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

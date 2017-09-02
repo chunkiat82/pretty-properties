@@ -28,12 +28,18 @@ router.post('/', async function (req, res, next) {
                 value: rightValue
             } = rightProperties.getPropertyAndType(key);
             let type = 'json';
+
+            console.log(`leftType=${leftType}`);
+            console.log(`rightType=${rightType}`);
+            console.log(`key=${key}`)
             if (leftType !== rightType || leftType === 'string') {
                 type = 'text';
             } else {
                 leftValue = JSON.stringify(leftValue, null, 2);
                 rightValue = JSON.stringify(rightValue, null, 2);
             }
+
+            if (leftValue === rightValue) return;
             // console.log(`key=${JSON.stringify(key)}`);
             // console.log(`leftValue=${JSON.stringify(leftValue)}`);
             // console.log(`rightValue=${JSON.stringify(rightValue)}`);       
@@ -43,15 +49,18 @@ router.post('/', async function (req, res, next) {
             diffsArray[diffsArray.length] = JsDiff.createPatch(key,
                 leftValue || '', rightValue || '',
                 leftValue ? type : '/dev/null', rightValue ? type : '/dev/null');
+
             if (leftValue === undefined) {
                 diffsArray[diffsArray.length] = 'new file mode 100644\n' + diffsArray[diffsArray.length];
             }
-            console.log(`rightValue=${rightValue}`);
+
+            // console.log(`rightValue=${rightValue}`);
+
             if (rightValue === undefined) {
                 diffsArray[diffsArray.length] = 'deleted file mode 100644\n' + diffsArray[diffsArray.length];
             }
         });
-        console.log(diffsArray);
+        // console.log(diffsArray);
         // res.set({
         //     'content-type': 'text/plain; charset=utf-8'
         // });
@@ -59,7 +68,7 @@ router.post('/', async function (req, res, next) {
         const buf = Buffer.from(diffsArray.join('\n'), 'ascii');
 
         res.render('index', {
-            title: 'Diffs 1',
+            title: 'Diffs',
             diffs: buf.toString('base64')
         });
     } catch (err) {

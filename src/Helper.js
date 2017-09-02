@@ -162,10 +162,13 @@ function diffProperties(leftPrettyProperties, rightPrettyProperties) {
     return diffs;
 }
 
+const isValidJSON = (val) => val instanceof Array || val instanceof Object ? true : false;
+
 export {
     diffProperties,
     parseProperties,
     diff,
     TYPE,
-    DIFF_TYPE
+    DIFF_TYPE,
+    isValidJSON
 };

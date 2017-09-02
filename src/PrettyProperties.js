@@ -6,7 +6,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-import { diffProperties } from './Helper';
+import { diffProperties, isValidJSON} from './Helper';
 import { TYPE } from './Constants';
 
 class PrettyProperties {
@@ -31,7 +31,11 @@ class PrettyProperties {
         try {
             /* possible to cache */
             const json = JSON.parse(value);
-            returnValue = { type: TYPE.JSON, value:json };
+            if (isValidJSON(json)) {
+                returnValue = { type: TYPE.JSON, value:json };
+            } else {
+                returnValue = { type: TYPE.STRING, value:value };
+            }            
         } catch (e) {
             returnValue = { type: TYPE.STRING, value };
         }
