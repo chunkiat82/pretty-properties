@@ -29,10 +29,12 @@ router.post('/', async function (req, res, next) {
             } = rightProperties.getPropertyAndType(key);
             let type = 'json';
 
-            console.log(`leftType=${leftType}`);
-            console.log(`rightType=${rightType}`);
-            console.log(`key=${key}`)
+            // console.log(`leftType=${leftType}`);
+            // console.log(`rightType=${rightType}`);
+            // console.log(`key=${key}`)
             if (leftType !== rightType || leftType === 'string') {
+                leftValue = leftValue === undefined ? undefined : String(leftValue);
+                rightValue = rightValue === undefined ? undefined :  String(rightValue);
                 type = 'text';
             } else {
                 leftValue = JSON.stringify(leftValue, null, 2);
