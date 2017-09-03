@@ -48,18 +48,21 @@ router.post('/', async function (req, res, next) {
             // console.log(`leftValueType=${typeof leftValue}`);
             // console.log(`rightValueType=${typeof rightValue}`);            
             // console.log(`type=${type}`)
+            // console.log(`diffsArray.length=${diffsArray.length}`);
             diffsArray[diffsArray.length] = JsDiff.createPatch(key,
                 leftValue || '', rightValue || '',
                 leftValue ? type : '/dev/null', rightValue ? type : '/dev/null');
 
             if (leftValue === undefined) {
-                diffsArray[diffsArray.length] = 'new file mode 100644\n' + diffsArray[diffsArray.length];
+                // console.log(`L diffsArray.length=${diffsArray.length}`);
+                diffsArray[diffsArray.length - 1] = diffsArray[diffsArray.length - 1] + 'new file mode 100644';
             }
 
             // console.log(`rightValue=${rightValue}`);
 
             if (rightValue === undefined) {
-                diffsArray[diffsArray.length] = 'deleted file mode 100644\n' + diffsArray[diffsArray.length];
+                // console.log(`R diffsArray.length=${diffsArray.length}`);
+                diffsArray[diffsArray.length - 1] = diffsArray[diffsArray.length - 1] + 'deleted file mode 100644';
             }
         });
         // console.log(diffsArray);

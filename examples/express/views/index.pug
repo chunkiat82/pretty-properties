@@ -2,7 +2,22 @@ extends layout
 
 block content  
   div(class='container')
-    div(class="diff-url-wrapper")
-      input(id="url", class="diff-url-input",type="text",name="url",placeholder="URL")
-      a(id="url-btn", class="diff-url-btn btn btn-sm", href="#")='Load'
+    //- div(class="diff-url-wrapper")
+    //-   input(id="url", class="diff-url-input",type="text",name="url",placeholder="URL")
+    //-   a(id="url-btn", class="diff-url-btn btn btn-sm", href="#")='Load'
+    hr()      
+    div(class="row")
+      div(class="col-md-2 col-xs-12 col-15")
+        span()='Output Format'
+        br()
+        select(class="options-label-value",id="diff-url-options-output-format",name="outputFormat")
+          option(value="line-by-line",selected="")= 'Line By Line'
+          option(value="side-by-side")= 'Side by Side'
+      div(class="col-md-2 col-xs-12 col-15")
+        span()='Matching'
+        br()
+        select(class="options-label-value",id="diff-url-options-matching",name="matching")
+          option(value="words",selected="")= 'Words'
+          option(value="lines")= 'Lines'
+    hr()
     div(id="url-diff-container", style="margin: 0 auto;")
