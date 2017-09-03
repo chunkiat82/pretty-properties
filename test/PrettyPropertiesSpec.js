@@ -13,21 +13,22 @@ import {
 } from 'chai';
 import {
     parseProperties,
-    diffProperties
+    diffProperties,
+    unifiedDiffProperties
 } from '../src/index';
 
 describe('PrettyProperties', () => {
 
     describe('PrettyProperties getProperty()', () => {
 
-        it('should return string', async() => {
+        it('should return string', async () => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const value = properties.getProperty('a');
             expect(value).to.be.equal('a');
             expect(typeof value).to.be.equal('string');
         });
 
-        it('should return JSON Object', async() => {
+        it('should return JSON Object', async () => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const value = properties.getProperty('l');
             const expected = {
@@ -37,7 +38,7 @@ describe('PrettyProperties', () => {
             expect(typeof value).to.be.equal('object');
         });
 
-        it('should return JSON Object and Type to be json', async() => {
+        it('should return JSON Object and Type to be json', async () => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const {
                 value,
@@ -51,7 +52,7 @@ describe('PrettyProperties', () => {
             expect(type).to.be.equal('json');
         });
 
-        it('should return string and Type to be string', async() => {
+        it('should return string and Type to be string', async () => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const {
                 value,
@@ -62,7 +63,7 @@ describe('PrettyProperties', () => {
             expect(type).to.be.equal('string');
         });
 
-        it('should return whole Object', async() => {
+        it('should return whole Object', async () => {
             const properties = await parseProperties(__dirname + '/samples/test1.properties');
             const all = properties.getProperties();
             expect(typeof JSON.parse(all.l)).to.be.equal('object');
@@ -75,7 +76,7 @@ describe('PrettyProperties', () => {
 
     describe('PrettyProperties getDiff()', () => {
 
-        it('should return same keys and empty array', async() => {
+        it('should return same keys and empty array', async () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test4.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test4.B.properties');
             const diffs = diffProperties(propertiesLeft, propertiesRight);
@@ -93,7 +94,7 @@ describe('PrettyProperties', () => {
 
         });
 
-        it('should return different keys in diff array', async() => {
+        it('should return different keys in diff array', async () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test5.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test5.B.properties');
             const diffs = diffProperties(propertiesLeft, propertiesRight);
@@ -111,7 +112,7 @@ describe('PrettyProperties', () => {
                 ]);
         });
 
-        it('should return different keys in diff array', async() => {
+        it('should return different keys in diff array', async () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test7.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test7.B.properties');
             const diffs = diffProperties(propertiesLeft, propertiesRight);
@@ -139,7 +140,7 @@ describe('PrettyProperties', () => {
                 ]);
         });
 
-        it('should return different keys in diff array', async() => {
+        it('should return different keys in diff array', async () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test8.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test8.B.properties');
             const diffs = diffProperties(propertiesLeft, propertiesRight);
@@ -177,7 +178,7 @@ describe('PrettyProperties', () => {
                 ]);
         });
 
-        it('should return different keys in diff array', async() => {
+        it('should return different keys in diff array', async () => {
             const propertiesLeft = await parseProperties(__dirname + '/samples/test9.A.properties');
             const propertiesRight = await parseProperties(__dirname + '/samples/test9.B.properties');
             const diffs = diffProperties(propertiesLeft, propertiesRight);
@@ -205,12 +206,15 @@ describe('PrettyProperties', () => {
                 ]);
         });
 
-        it('should return different keys in diff array for JSON', async() => {
-            // const propertiesLeft = await parseProperties(__dirname + '/samples/test10.A.properties');
-            // const propertiesRight = await parseProperties(__dirname + '/samples/test10.B.properties');
-            // const diffs = diffProperties(propertiesLeft, propertiesRight);
-            // expect(diffs).to.deep.includes([]);
-            // to be continued;
+    });
+
+    describe('PrettyProperties unifiedDiff()', () => {
+        it('should return unified diff in arrays', async () => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test9.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test9.B.properties');
+            const diffs = await unifiedDiffProperties(propertiesLeft, propertiesRight);
+            expect(diffs[0]).equal('Index: b\n===================================================================\n--- b\t/dev/null\n+++ b\ttext\n@@ -1,0 +1,1 @@\n\\ No newline at end of file\n+b\nnew file mode 100644');
+            expect(diffs[1]).equal('Index: c\n===================================================================\n--- c\ttext\n+++ c\t/dev/null\n@@ -1,1 +1,0 @@\n-c\n\\ No newline at end of file\ndeleted file mode 100644');
         });
     });
 });

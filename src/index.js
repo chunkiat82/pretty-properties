@@ -8,9 +8,9 @@
  */
 
 import PrettyProperties from './PrettyProperties';
-import { diffProperties, parseProperties, diff } from './Helper';
+import { unifiedDiffProperties, diffProperties, parseProperties, diff } from './Helper';
 import { TYPE, DIFF_TYPE } from './Constants';
 
 export default PrettyProperties;
-export { diffProperties, parseProperties, diff, TYPE, DIFF_TYPE};
+export { unifiedDiffProperties, diffProperties, parseProperties, diff, TYPE, DIFF_TYPE };
 

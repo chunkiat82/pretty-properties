@@ -9,7 +9,7 @@
 /*eslint no-undef: "off"*/
 
 require('colors');
-const jsdiff = require('diff')
+import * as JsDiff from 'diff';
 var debug = require('debug')('prettyproperties');
 
 import properties from 'properties';
@@ -25,7 +25,7 @@ async function parseProperties(filename, path) {
         properties.parse(filename, {
             path: !path,
             separators: "="
-        }, function(error, obj) {
+        }, function (error, obj) {
             error ? reject(error) : resolve(new PrettyProperties(obj));
         });
     });
@@ -37,9 +37,9 @@ function diff(left, right, options = {
     fullDiff: true
 }) {
     debug('left type = %s, right type =%s', typeof left, typeof right);
-    
+
     debug('MAPPING_TYPE[options.type + options.diffType] = %s', MAPPING_TYPE[options.type + options.diffType]);
-    const diffFunction = jsdiff[MAPPING_TYPE[options.type + options.diffType]]
+    const diffFunction = JsDiff[MAPPING_TYPE[options.type + options.diffType]]
     const diffs = diffFunction(left, right);
 
     if (debug.enabled) {
@@ -162,9 +162,60 @@ function diffProperties(leftPrettyProperties, rightPrettyProperties) {
     return diffs;
 }
 
+async function unifiedDiffProperties(leftProperties, rightProperties) {
+    const diffsArray = [];
+    // const leftProperties = await parseProperties(leftText, true);
+    const left = leftProperties.getProperties();
+    // const rightProperties = await parseProperties(rightText, true);
+    const right = rightProperties.getProperties();
+
+    const rightKeys = Object.keys(right);
+    const leftKeys = Object.keys(left);
+    const keys = [...new Set([...leftKeys, ...rightKeys])];
+    keys.sort().forEach(key => {
+
+        let {
+            type: leftType,
+            value: leftValue
+            } = leftProperties.getPropertyAndType(key);
+        let {
+            type: rightType,
+            value: rightValue
+            } = rightProperties.getPropertyAndType(key);
+        let type = 'json';
+
+        if (leftValue === rightValue) return;
+
+        if (leftType !== rightType || leftType === 'string') {
+            leftValue = leftValue === undefined ? undefined : String(leftValue);
+            rightValue = rightValue === undefined ? undefined : String(rightValue);
+            type = 'text';
+        } else {
+            leftValue = JSON.stringify(leftValue, null, 2);
+            rightValue = JSON.stringify(rightValue, null, 2);
+        }
+
+        diffsArray[diffsArray.length] = JsDiff.createPatch(key,
+            leftValue || '', rightValue || '',
+            leftValue ? type : '/dev/null', rightValue ? type : '/dev/null');
+
+        // currently hardcoded for new property detection
+        if (leftValue === undefined) {
+            diffsArray[diffsArray.length - 1] = diffsArray[diffsArray.length - 1] + 'new file mode 100644';
+        }
+
+        // currently hardcoded for missing property detection
+        if (rightValue === undefined) {
+            diffsArray[diffsArray.length - 1] = diffsArray[diffsArray.length - 1] + 'deleted file mode 100644';
+        }
+    });
+    return diffsArray;
+}
+
 const isValidJSON = (val) => val instanceof Array || val instanceof Object ? true : false;
 
 export {
+    unifiedDiffProperties,
     diffProperties,
     parseProperties,
     diff,

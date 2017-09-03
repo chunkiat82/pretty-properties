@@ -11,6 +11,7 @@ import { TYPE } from './Constants';
 
 class PrettyProperties {
 
+    /* can do better in constructor */
     constructor(props) {
         this.props = props;
     }
