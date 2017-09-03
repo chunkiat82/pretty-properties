@@ -3,7 +3,7 @@ const router = express.Router();
 import PrettyProperties, {
     parseProperties,
     diffProperties,
-    undifiedDiffProperties
+    unifiedDiffProperties
 } from 'pretty-properties';
 
 import * as JsDiff from 'diff';
@@ -12,7 +12,7 @@ router.post('/', async function (req, res, next) {
     try {
         const leftProperties = await parseProperties(req.body.left, true);
         const rightProperties = await parseProperties(req.body.right, true);
-        const diffsArrays = await undifiedDiffProperties(leftProperties, rightProperties);
+        const diffsArray = await unifiedDiffProperties(leftProperties, rightProperties);
 
         const buf = Buffer.from(diffsArray.join('\n'), 'ascii');
 

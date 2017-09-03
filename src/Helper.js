@@ -8,11 +8,13 @@
  */
 /*eslint no-undef: "off"*/
 
-require('colors');
+import 'colors';
 import * as JsDiff from 'diff';
-var debug = require('debug')('prettyproperties');
-
+import debugLib from 'debug';
 import properties from 'properties';
+const debug = debugLib('prettyproperties');
+
+
 import PrettyProperties from './index';
 import {
     TYPE,
