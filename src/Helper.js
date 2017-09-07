@@ -184,9 +184,8 @@ async function unifiedDiffProperties(leftProperties, rightProperties) {
             type: rightType,
             value: rightValue
             } = rightProperties.getPropertyAndType(key);
-        let type = 'json';
 
-        if (leftValue === rightValue) return;
+        let type = 'json';
 
         if (leftType !== rightType || leftType === 'string') {
             leftValue = leftValue === undefined ? undefined : String(leftValue);
@@ -196,6 +195,8 @@ async function unifiedDiffProperties(leftProperties, rightProperties) {
             leftValue = JSON.stringify(leftValue, null, 2);
             rightValue = JSON.stringify(rightValue, null, 2);
         }
+
+        if (leftValue === rightValue) return;
 
         diffsArray[diffsArray.length] = JsDiff.createPatch(key,
             leftValue || '', rightValue || '',

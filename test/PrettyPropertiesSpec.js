@@ -216,5 +216,12 @@ describe('PrettyProperties', () => {
             expect(diffs[0]).equal('Index: b\n===================================================================\n--- b\t/dev/null\n+++ b\ttext\n@@ -1,0 +1,1 @@\n\\ No newline at end of file\n+b\nnew file mode 100644');
             expect(diffs[1]).equal('Index: c\n===================================================================\n--- c\ttext\n+++ c\t/dev/null\n@@ -1,1 +1,0 @@\n-c\n\\ No newline at end of file\ndeleted file mode 100644');
         });
+
+        it('should return unified diff in arrays', async () => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/weird.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/weird.B.properties');
+            const diffs = await unifiedDiffProperties(propertiesLeft, propertiesRight);
+            expect(diffs).to.deep.equals([]);
+        });
     });
 });
