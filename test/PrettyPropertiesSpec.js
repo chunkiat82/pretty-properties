@@ -224,4 +224,14 @@ describe('PrettyProperties', () => {
             expect(diffs).to.deep.equals([]);
         });
     });
+
+    describe('PrettyProperties unifiedDiff() for new json', () => {
+        it('should return unified diff for new json', async () => {
+            const propertiesLeft = await parseProperties(__dirname + '/samples/test11.A.properties');
+            const propertiesRight = await parseProperties(__dirname + '/samples/test11.B.properties');
+            const diffs = await unifiedDiffProperties(propertiesLeft, propertiesRight);
+            expect(diffs[0]).equal('Index: b\n===================================================================\n--- b\t/dev/null\n+++ b\tjson\n@@ -1,0 +1,4 @@\n\\ No newline at end of file\n+{\n+  "ray": "el",\n+  "hello": "world"\n+}\nnew file mode 100644');
+        });
+        
+    });
 });
