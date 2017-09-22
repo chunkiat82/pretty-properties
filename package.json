@@ -24,7 +24,8 @@
     "diff2html": "^2.3.0",
     "jsesc": "^2.5.1",
     "promise": "^8.0.0",
-    "properties": "^1.2.1"
+    "properties": "^1.2.1",
+    "babel-runtime": "^6.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
@@ -35,7 +36,6 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.8.0",
-    "babel-runtime": "^6.6.1",
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "del": "^2.2.0",
