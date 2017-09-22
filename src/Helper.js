@@ -192,7 +192,7 @@ async function unifiedDiffProperties(leftProperties, rightProperties) {
             
             if (rightType === 'json'){                
                 leftValue = leftValue === undefined ? undefined : String(leftValue);
-                rightValue = JSON.stringify(rightValue, null, 2);
+                rightValue = rightValue === undefined ? undefined : JSON.stringify(rightValue, null, 2);
                 type = 'json';
             } else {
                 leftValue = leftValue === undefined ? undefined : String(leftValue);
