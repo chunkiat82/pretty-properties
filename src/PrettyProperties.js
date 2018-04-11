@@ -8,6 +8,8 @@
  */
 import { diffProperties, isValidJSON } from './Helper';
 import { TYPE } from './Constants';
+import debugLib from 'debug';
+const debug = debugLib('prettyproperties');
 
 class PrettyProperties {
 
@@ -33,12 +35,29 @@ class PrettyProperties {
             /* possible to cache */
             const json = JSON.parse(value);
             if (isValidJSON(json)) {
+                debug('Valid JSON after first Parsing');
                 returnValue = { type: TYPE.JSON, value:json };
             } else {
+                debug('InValid JSON after first Parsing');
                 returnValue = { type: TYPE.STRING, value:value };
-            }            
+            }
         } catch (e) {
-            returnValue = { type: TYPE.STRING, value };
+            try {
+                // this is very special case to be extracted next time
+                let replacedValue = value.replace(/\\,/g, ",")
+                replacedValue = replacedValue.replace(/[\r\t\n]/g, '');
+                const retryJson = JSON.parse(replacedValue);
+                if (isValidJSON(retryJson)) {
+                    debug('Valid JSON after first exception');
+                    returnValue = { type: TYPE.JSON, value:retryJson };
+                } else {
+                    debug('InValid JSON after first exception');
+                    returnValue = { type: TYPE.STRING, value:value };
+                }
+            } catch (e1) {
+                debug('InValid JSON after second exception');
+                returnValue = { type: TYPE.STRING, value };
+            }
         }
         return returnValue;
     }

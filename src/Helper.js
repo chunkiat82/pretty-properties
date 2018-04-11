@@ -14,7 +14,6 @@ import debugLib from 'debug';
 import properties from 'properties';
 const debug = debugLib('prettyproperties');
 
-
 import PrettyProperties from './index';
 import {
     TYPE,
@@ -26,8 +25,11 @@ async function parseProperties(filename, path) {
     return new Promise((resolve, reject) => {
         properties.parse(filename, {
             path: !path,
-            separators: "="
+            separators: "=",
         }, function (error, obj) {
+            // console.log('------');
+            // console.log(obj);
+            // console.log('------');
             error ? reject(error) : resolve(new PrettyProperties(obj));
         });
     });

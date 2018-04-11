@@ -1,6 +1,6 @@
 {
   "name": "pretty-properties",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "repository": "chunkiat82/pretty-properties",
   "author": "Raymond Ho",
@@ -18,14 +18,14 @@
     ]
   },
   "dependencies": {
+    "babel-runtime": "^6.6.1",
     "colors": "^1.1.2",
     "debug": "^2.6.9",
     "diff": "^3.2.0",
     "diff2html": "^2.3.0",
     "jsesc": "^2.5.1",
     "promise": "^8.0.0",
-    "properties": "^1.2.1",
-    "babel-runtime": "^6.6.1"
+    "properties": "^1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
