@@ -1,0 +1,45 @@
+{
+  "_id": "5acf1386b409bdd8357902fb",
+  "index": 0,
+  "guid": "87fa069f-68e7-4333-978a-3c11cc44d770",
+  "isActive": false,
+  "balance": "$3,246.61",
+  "picture": "http://placehold.it/32x32",
+  "age": 40,
+  "eyeColor": "brown",
+  "name": "Bobbi Travis",
+  "gender": "female",
+  "company": "MARTGO",
+  "email": "bobbitravis@martgo.com",
+  "phone": "+1 (972) 471-3979",
+  "address": "960 Bradford Street, Thornport, Mississippi, 6362",
+  "about": "Ut non et elit in proident. Cupidatat ea sit quis veniam excepteur sunt non consectetur consequat occaecat. Amet consectetur id aliquip tempor esse anim nisi. Officia Lorem mollit eu exercitation dolor ea eiusmod sit aliquip occaecat. Laborum deserunt exercitation incididunt incididunt commodo elit occaecat nostrud.\r\n",
+  "registered": "2016-03-05T02:00:32 -08:00",
+  "latitude": 75.793495,
+  "longitude": -8.496427,
+  "tags": [
+    "dolore",
+    "amet",
+    "commodo",
+    "consectetur",
+    "ullamco",
+    "non",
+    "tempor"
+  ],
+  "friends": [
+    {
+      "id": 0,
+      "name": "Brigitte Vaughn"
+    },
+    {
+      "id": 1,
+      "name": "Decker Mcknight"
+    },
+    {
+      "id": 2,
+      "name": "Jean Dunn"
+    }
+  ],
+  "greeting": "Hello, Bobbi Travis! You have 3 unread messages.",
+  "favoriteFruit": "apple"
+}

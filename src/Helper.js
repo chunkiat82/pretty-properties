@@ -25,11 +25,8 @@ async function parseProperties(filename, path) {
     return new Promise((resolve, reject) => {
         properties.parse(filename, {
             path: !path,
-            separators: "=",
+            separators: "="
         }, function (error, obj) {
-            // console.log('------');
-            // console.log(obj);
-            // console.log('------');
             error ? reject(error) : resolve(new PrettyProperties(obj));
         });
     });

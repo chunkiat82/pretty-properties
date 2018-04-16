@@ -11,12 +11,16 @@
 import {
     expect
 } from 'chai';
+import fs from 'fs';
 import {
     parseProperties,
     diff,
     TYPE,
-    DIFF_TYPE
+    DIFF_TYPE,
+    unifiedDiffProperties
 } from '../src/index';
+
+import PrettyProperties from '../src/index';
 
 describe('Diff Test', () => {
 
@@ -91,4 +95,22 @@ describe('Diff Test', () => {
         });
     });
 
+    describe('JSON Big diff with JSON files', () => {
+
+        it('testing with parsing JSON files directly', async () => {
+
+            var left = fs.readFileSync(__dirname + '/samples/big.1.json');
+            var right = fs.readFileSync(__dirname + '/samples/big.2.json');
+
+            const pp1 = new PrettyProperties(JSON.parse(left));
+            const pp2 = new PrettyProperties(JSON.parse(right));            
+
+            unifiedDiffProperties(pp1, pp2).then(diffs => {                
+                expect(diffs[1].trim()).equal('Index: about\n===================================================================\n--- about\ttext\n+++ about\ttext\n@@ -1,1 +1,1 @@\n-Consequat deserunt laboris esse id labore aute cillum. Esse reprehenderit et culpa fugiat velit voluptate qui laboris laborum commodo est. Ut ipsum et quis consequat irure anim eu reprehenderit laboris dolor. Pariatur pariatur consequat minim do elit elit fugiat sint sit cupidatat sunt amet in aliquip. Nulla officia labore reprehenderit enim officia. Duis eiusmod do do aliqua ut magna ullamco.\r\n+Ut non et elit in proident. Cupidatat ea sit quis veniam excepteur sunt non consectetur consequat occaecat. Amet consectetur id aliquip tempor esse anim nisi. Officia Lorem mollit eu exercitation dolor ea eiusmod sit aliquip occaecat. Laborum deserunt exercitation incididunt incididunt commodo elit occaecat nostrud.');
+            }).catch(() =>{
+                expect.fail();
+            });
+
+        });
+    });
 });

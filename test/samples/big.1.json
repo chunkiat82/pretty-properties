@@ -1,0 +1,45 @@
+{
+    "_id": "5acf1379c49520e49cac95a1",
+    "index": 0,
+    "guid": "ba9f5880-6fc9-4bc1-afe8-e4afb29b9344",
+    "isActive": false,
+    "balance": "$1,886.39",
+    "picture": "http://placehold.it/32x32",
+    "age": 25,
+    "eyeColor": "brown",
+    "name": "Leta Gay",
+    "gender": "female",
+    "company": "ECOLIGHT",
+    "email": "letagay@ecolight.com",
+    "phone": "+1 (859) 590-2093",
+    "address": "504 Boynton Place, Bergoo, Arizona, 1231",
+    "about": "Consequat deserunt laboris esse id labore aute cillum. Esse reprehenderit et culpa fugiat velit voluptate qui laboris laborum commodo est. Ut ipsum et quis consequat irure anim eu reprehenderit laboris dolor. Pariatur pariatur consequat minim do elit elit fugiat sint sit cupidatat sunt amet in aliquip. Nulla officia labore reprehenderit enim officia. Duis eiusmod do do aliqua ut magna ullamco.\r\n",
+    "registered": "2014-07-26T08:08:09 -08:00",
+    "latitude": 77.666979,
+    "longitude": 144.678292,
+    "tags": [
+      "proident",
+      "ipsum",
+      "excepteur",
+      "tempor",
+      "est",
+      "esse",
+      "nostrud"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Velasquez Mccall"
+      },
+      {
+        "id": 1,
+        "name": "Aimee Hernandez"
+      },
+      {
+        "id": 2,
+        "name": "Enid Goodwin"
+      }
+    ],
+    "greeting": "Hello, Leta Gay! You have 10 unread messages.",
+    "favoriteFruit": "strawberry"
+  }

@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 
 import index from './routes/index';
 import compare from './routes/compare';
+import json from './routes/json';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, '../public' )));
 
 app.use('/', index);
 app.use('/compare', compare);
+app.use('/json', json);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
